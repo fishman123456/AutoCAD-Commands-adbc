@@ -57,7 +57,8 @@ namespace ACADCommands
                                 double zCoord = acBlockRef.Position.Z;
 
                                 acMText.Contents = "X= " + xCoord.ToString("F2") +
-                                                   "\nY= " + yCoord.ToString("F2");
+                                                   "\nY= " + yCoord.ToString("F2")+
+                                                   "\nZ= " + zCoord.ToString("F2");
                                 acMText.Height = 1;
                                 acMLeader.MText = acMText;
 
