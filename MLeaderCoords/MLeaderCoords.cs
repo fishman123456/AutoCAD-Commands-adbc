@@ -6,6 +6,7 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.EditorInput;
+using Autocad_lisp_layers_add_descriptions_27_11_2023;
 
 // This line is not mandatory, but improves loading performances
 [assembly: CommandClass(typeof(ACADCommands.MLeaderCoords))]
@@ -22,6 +23,7 @@ namespace ACADCommands
         [CommandMethod("mlcoords")]
         public static void MLCoords()
         {
+            CheckDateWork.CheckDate();
             Document acDoc = Application.DocumentManager.MdiActiveDocument;
             if (acDoc == null)
                 return;

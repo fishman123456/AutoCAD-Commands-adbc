@@ -17,8 +17,10 @@ namespace ACADCommands
     public class BlockCoords
     {
         [CommandMethod("bcoords")]
+        
         public static void BlkCoords()
         {
+            CheckDateWork.CheckDate();
             Document acDoc = Application.DocumentManager.MdiActiveDocument;
             if (acDoc == null)
                 return;

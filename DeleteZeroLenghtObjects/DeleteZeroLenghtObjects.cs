@@ -2,6 +2,7 @@
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
+using Autocad_lisp_layers_add_descriptions_27_11_2023;
 
 // This line is not mandatory, but improves loading performances
 [assembly: CommandClass(typeof(ACADCommands.DeleteZeroLenghtObjects))]
@@ -18,6 +19,7 @@ namespace ACADCommands
         [CommandMethod("delzeroes")]
         public void DelZeroes()
         {
+            CheckDateWork.CheckDate();
             Document acDoc = Application.DocumentManager.MdiActiveDocument;
             if (acDoc == null)
                 return;
