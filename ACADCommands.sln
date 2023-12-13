@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockCoords", "BlockCoords\BlockCoords.csproj", "{E9939574-A667-4A42-ABE5-AC35445BB09B}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListAllObjects", "ListAllObjects\ListAllObjects.csproj", "{B97DA398-111C-4CEB-A041-D2253A66DC92}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLeaderCoords", "MLeaderCoords\MLeaderCoords.csproj", "{7E9B5B38-1A56-487D-8408-E82BE56A5667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockInsert", "BlockInsert\BlockInsert.csproj", "{6B7F9EDA-82F0-41A8-B8E4-DF010291258E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockCoordSql", "BlockCoordSql\BlockCoordSql.csproj", "{B1BC9FB6-B9B7-4B43-9E84-66011C8180E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +37,19 @@ Global
 		{7E9B5B38-1A56-487D-8408-E82BE56A5667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E9B5B38-1A56-487D-8408-E82BE56A5667}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E9B5B38-1A56-487D-8408-E82BE56A5667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B7F9EDA-82F0-41A8-B8E4-DF010291258E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B7F9EDA-82F0-41A8-B8E4-DF010291258E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B7F9EDA-82F0-41A8-B8E4-DF010291258E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B7F9EDA-82F0-41A8-B8E4-DF010291258E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1BC9FB6-B9B7-4B43-9E84-66011C8180E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1BC9FB6-B9B7-4B43-9E84-66011C8180E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1BC9FB6-B9B7-4B43-9E84-66011C8180E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1BC9FB6-B9B7-4B43-9E84-66011C8180E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F672E4DF-5900-40A5-9DE8-990409E6C418}
 	EndGlobalSection
 EndGlobal

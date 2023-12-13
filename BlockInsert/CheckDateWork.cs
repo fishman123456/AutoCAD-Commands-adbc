@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ACADCommands
+namespace Autocad_lisp_layers_add_descriptions_27_11_2023
 {
     // класс для проверки текущей даты
     public static class CheckDateWork
