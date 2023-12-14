@@ -43,11 +43,13 @@ namespace ACADCommands
                     BlockReference blkRef = (BlockReference)tr.GetObject(blkId, OpenMode.ForRead);
 
                     BlockTableRecord btr = (BlockTableRecord)tr.GetObject(blkRef.BlockTableRecord, OpenMode.ForRead);
-                    ed.WriteMessage("\nBlock: " + btr.Name);
-                    btr.Dispose();
+
+                   // btr.Dispose();
                     AttributeCollection attCol = blkRef.AttributeCollection;
-                    //  выводим координаты блока,слой и handle 
+                    //  выводим координаты блока,слой и handle
+
                     string str = ("\n--------------------------\n" +
+                                       "Block name: " + btr.Name + ",\n" +
                                        "ID: " + blkRef.Id.ToString() + ",\n" +
                                        "X: " + blkRef.Position.X.ToString() + ",\n" +
                                        "Y: " + blkRef.Position.Y.ToString() + ",\n" +
@@ -59,7 +61,7 @@ namespace ACADCommands
                     {
                         AttributeReference attRef = (AttributeReference)tr.GetObject(attId, OpenMode.ForRead);
                         str = ("Attribute Tag: " + attRef.Tag + ",\n" +
-                                "Attribute String: " + attRef.TextString);
+                                "Attribute String: " + attRef.TextString + ",\n");
                         ed.WriteMessage(str);
                     }
                 }
