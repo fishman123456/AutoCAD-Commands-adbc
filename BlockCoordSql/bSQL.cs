@@ -11,8 +11,6 @@ using System.Collections.Generic;
 
 namespace ACADCommands
 {
-
-
     // Этот класс создается AutoCAD для каждого документа, когда
     // команда вызывается пользователем в первый раз в контексте
     // данного документа. Другими словами, нестатические данные в этом классе
@@ -20,7 +18,6 @@ namespace ACADCommands
     public class bSQL
     {
         public List<string> CoorxyzGet { get; }
-
         [CommandMethod("bSQL")]
         public static void BlkCoords()
         {
