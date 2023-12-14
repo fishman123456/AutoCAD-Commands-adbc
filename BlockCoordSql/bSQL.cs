@@ -36,6 +36,7 @@ namespace ACADCommands
 
             using (Transaction acTrans = acCurrDb.TransactionManager.StartTransaction())
             {
+                var attribute = acTrans.GetObject(acCurrDb.BlockTableId, OpenMode.ForWrite) as BlockTable;
                 // открываем таблицу слоев документа
                 LayerTable acLyrTbl = acTrans.GetObject(acCurrDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
                 // массив для фильтра
@@ -75,6 +76,7 @@ namespace ACADCommands
                                 // слой забирается, в котором блок находится - 13-02-2023 
                                 // нужен аттрибут 
                                 // вывод в коммандную строку
+                    
                                 acDoc.Editor.WriteMessage(Coorxyz[i]);
                                 i++;
                             }
