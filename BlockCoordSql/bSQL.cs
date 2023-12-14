@@ -24,6 +24,8 @@ namespace ACADCommands
         [CommandMethod("bSQL")]
         public static void BlkCoords()
         {
+            // переменная для инкремента прохождения по списку
+            int i = 0;
             CheckDateWork.CheckDate();
             List<string> Coorxyz = new List<string>();
 
@@ -69,14 +71,12 @@ namespace ACADCommands
                                             "Handle: " + acBlkTbl.Handle.ToString() + ",\n" +
                                             "ObjectId: " + acBlkTblRec.ObjectId.ToString() + ",\n" +
                                             "Handle BlockRef : " + acBlockRef.Handle.ToString() + ",\n" + // вот нужная фигня - Handle
-                                            "Layer: " + acBlockRef.Layer.ToString() + "\n****************\n\n\n");
+                                            "Layer: " + acBlockRef.Layer.ToString() + "\n****************\n");
                                 // слой забирается, в котором блок находится - 13-02-2023 
                                 // нужен аттрибут 
                                 // вывод в коммандную строку
-                                foreach(string str  in Coorxyz)
-                                {
-                                    acDoc.Editor.WriteMessage(str);
-                                }
+                                acDoc.Editor.WriteMessage(Coorxyz[i]);
+                                i++;
                             }
                         }
                     }
