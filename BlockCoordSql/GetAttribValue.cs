@@ -3,6 +3,8 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 
+using System.Text;
+
 // Эта строка не является обязательной, но улучшает производительность загрузки
 [assembly: CommandClass(typeof(ACADCommands.GetAttribValue))]
 
@@ -34,6 +36,8 @@ namespace ACADCommands
                     return;
                 SelectionSet selSet = res.Value;
                 ObjectId[] idArray = selSet.GetObjectIds();
+                StringBuilder stringBuilder = new StringBuilder();
+
                 foreach (ObjectId blkId in idArray)
                 {
                     BlockReference blkRef = (BlockReference)tr.GetObject(blkId, OpenMode.ForRead);
@@ -42,18 +46,20 @@ namespace ACADCommands
                     ed.WriteMessage("\nBlock: " + btr.Name);
                     btr.Dispose();
                     AttributeCollection attCol = blkRef.AttributeCollection;
-
+                    //  выводим координаты блока,слой и handle 
+                    string str = ("\n--------------------------\n" +
+                                       "ID: " + blkRef.Id.ToString() + ",\n" +
+                                       "X: " + blkRef.Position.X.ToString() + ",\n" +
+                                       "Y: " + blkRef.Position.Y.ToString() + ",\n" +
+                                       "Z: " + blkRef.Position.Z.ToString() + ",\n" +
+                                       "Handle BlockRef : " + blkRef.Handle.ToString() + ",\n" + // вот нужная фигня - Handle
+                                       "Layer: " + blkRef.Layer.ToString() + ",\n");
+                    ed.WriteMessage(str);
                     foreach (ObjectId attId in attCol)
                     {
                         AttributeReference attRef = (AttributeReference)tr.GetObject(attId, OpenMode.ForRead);
-                        string str = ("ID: " + blkRef.Id.ToString() + ",\n " +
-                                      "X: " + blkRef.Position.X.ToString() + ",\n" +
-                                      "Y: " + blkRef.Position.Y.ToString() + ",\n" +
-                                      "Z: " + blkRef.Position.Z.ToString() + ",\n" +
-                                      "Handle BlockRef : " + blkRef.Handle.ToString() + ",\n" + // вот нужная фигня - Handle
-                                      "Layer: " + blkRef.Layer.ToString() + ",\n" +
-                                      "Attribute Tag: " + attRef.Tag + ",\n" +
-                                      "Attribute String: " + attRef.TextString);
+                        str = ("Attribute Tag: " + attRef.Tag + ",\n" +
+                                "Attribute String: " + attRef.TextString);
                         ed.WriteMessage(str);
                     }
                 }
