@@ -42,6 +42,8 @@ namespace ACADCommands
                 acTypValArr.SetValue(new TypedValue((int)DxfCode.Start, "INSERT"), 0);
                 SelectionFilter acSelFilter = new SelectionFilter(acTypValArr);
                 PromptSelectionResult acSSPromptRes = acDoc.Editor.GetSelection(acSelFilter);
+                
+                
                 if (acSSPromptRes.Status == PromptStatus.OK)
                 {
                     SelectionSet acSSet = acSSPromptRes.Value;
@@ -59,16 +61,22 @@ namespace ACADCommands
 
                                 BlockTableRecord acBlkTblRec = acTrans.GetObject(
                                             acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
-                                // Добавляем в список координаты блоков
-                                Coorxyz.Add("ID: " + acBlockRef.Id.ToString() + ", " +
-                                            "X: " + acBlockRef.Position.X.ToString() + ", " +
-                                            "Y: " + acBlockRef.Position.Y.ToString() + ", " +
-                                            "Z: " + acBlockRef.Position.Z.ToString() + ", " +
-                                            "Handle: " + acBlkTbl.Handle.ToString() + "," +
-                                            "ObjectId: " + acBlkTblRec.ObjectId.ToString() + ", " +
+                                // Добавляем в список координаты блоков 14-12-2023
+                                Coorxyz.Add("ID: " + acBlockRef.Id.ToString() + ",\n " +
+                                            "X: " + acBlockRef.Position.X.ToString() + ",\n" +
+                                            "Y: " + acBlockRef.Position.Y.ToString() + ",\n" +
+                                            "Z: " + acBlockRef.Position.Z.ToString() + ",\n" +
+                                            "Handle: " + acBlkTbl.Handle.ToString() + ",\n" +
+                                            "ObjectId: " + acBlkTblRec.ObjectId.ToString() + ",\n" +
+                                            "Handle BlockRef : " + acBlockRef.Handle.ToString() + ",\n" + // вот нужеая фигня - Handle
                                             "Layer: " + acBlockRef.Layer.ToString());
-                               // слой забирается, в котором блок находится - 13-02-2023 
-                               // нужен аттрибут 
+                                // слой забирается, в котором блок находится - 13-02-2023 
+                                // нужен аттрибут 
+                                // вывод в коммандную строку
+                                foreach(string str  in Coorxyz)
+                                {
+                                    acDoc.Editor.WriteMessage(str);
+                                }
                             }
                         }
                     }
