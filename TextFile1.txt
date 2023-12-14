@@ -1,0 +1,121 @@
+
+выбор обьектов по аттрибутам
+using Autodesk.AutoCAD.ApplicationServices;
+ 
+using Autodesk.AutoCAD.EditorInput;
+ 
+using Autodesk.AutoCAD.DatabaseServices;
+ 
+using Autodesk.AutoCAD.Runtime;
+ 
+using acad = Autodesk.AutoCAD.ApplicationServices.Application;
+ 
+ 
+[assembly: CommandClass(typeof(BlockSet.Highlight))]
+namespace BlockSet
+{
+ 
+    public class Highlight
+    {
+ 
+        [CommandMethod("BHL", CommandFlags.UsePickSet )]
+ 
+        static public void HighlightByTag()
+        {
+ 
+            Document doc = acad.DocumentManager.MdiActiveDocument;
+ 
+            Database db = doc.Database;
+ 
+            Editor ed = doc.Editor;
+ 
+ 
+            Transaction tr =
+ 
+              doc.TransactionManager.StartTransaction();
+ 
+            using (tr = doc.TransactionManager.StartTransaction())
+            {
+                PromptSelectionOptions pso = new PromptSelectionOptions();
+ 
+                pso.MessageForRemoval = "\n >>  Nothing selected....";
+ 
+                pso.MessageForAdding = "\n  >>  Select block references >> ";
+ 
+                pso.AllowDuplicates = false;
+ 
+                pso.SingleOnly = true;
+ 
+                SelectionFilter sf = new SelectionFilter
+                    (new TypedValue[] { new TypedValue(0, "INSERT"), new TypedValue(66, 1) });
+ 
+                PromptSelectionResult res = ed.GetSelection(pso, sf);
+ 
+                if (res.Status != PromptStatus.OK)
+                    return;
+                ObjectId[] ids = res.Value.GetObjectIds();
+               
+ 
+ 
+ 
+                if (ids.Count() > 0)
+                {
+ 
+ 
+                    PromptResult pr =
+ 
+                      ed.GetString("\nAttribute Tag? (=>in UPPER CASE only!): ");
+ 
+                    if (pr.Status == PromptStatus.OK)
+                    {
+ 
+                        string attag = pr.StringResult;
+ 
+ 
+                        if (ids.Count() > 0)
+                        {
+ 
+                            var atinfo = (fr om id in ids
+                              let bref = (BlockReference)tr.GetObject(id, OpenMode.ForRead, false)
+ 
+                              let atcol = (AttributeCollection)bref.AttributeCollection
+                              fr om at in atcol.OfType<Ob jectId>()
+                              let atref = (AttributeReference)tr.GetObject(at, OpenMode.ForRead, false)
+                              wh ere atref.Tag == attag
+                              select bref).ToList();
+ 
+                            acad.ShowAlertDialog(string.Format("Selected: {0} blocks\ncontaining  \"{1}\" attribute", atinfo.Count(), attag));
+ 
+                            foreach (var blk in atinfo)
+                            {
+                              var hid = new ObjectId[] { blk.ObjectId };
+                              Entity ent = blk as Entity;
+ 
+                              SubentityId subid = new SubentityId(SubentityType.Null, 0);
+ 
+                              FullSubentityPath path = new FullSubentityPath(hid, subid);
+ 
+                              if (ent != null)
+                               
+                              ent.Highlight(path, true);
+                              ent.SetGripStatus(GripStatus.GripsDone);
+ 
+                            }
+                        }
+                        else
+                        {
+                            acad.ShowAlertDialog(string.Format("No blockdSelected");
+                        }
+ 
+                        }
+                     
+                        tr.Commit();
+                    }
+ 
+ 
+                }
+ 
+            }
+ 
+        }
+    }

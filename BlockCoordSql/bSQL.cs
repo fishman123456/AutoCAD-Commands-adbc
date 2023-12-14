@@ -24,6 +24,7 @@ namespace ACADCommands
         [CommandMethod("bSQL")]
         public static void BlkCoords()
         {
+            CheckDateWork.CheckDate();
             List<string> Coorxyz = new List<string>();
 
             Document acDoc = Application.DocumentManager.MdiActiveDocument;
@@ -33,7 +34,11 @@ namespace ACADCommands
 
             using (Transaction acTrans = acCurrDb.TransactionManager.StartTransaction())
             {
+                // открываем таблицу слоев документа
+                LayerTable acLyrTbl = acTrans.GetObject(acCurrDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
+                // массив для фильтра
                 TypedValue[] acTypValArr = new TypedValue[1];
+                // первый элемент для фильтра
                 acTypValArr.SetValue(new TypedValue((int)DxfCode.Start, "INSERT"), 0);
                 SelectionFilter acSelFilter = new SelectionFilter(acTypValArr);
                 PromptSelectionResult acSSPromptRes = acDoc.Editor.GetSelection(acSelFilter);
@@ -55,14 +60,15 @@ namespace ACADCommands
                                 BlockTableRecord acBlkTblRec = acTrans.GetObject(
                                             acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
                                 // Добавляем в список координаты блоков
-                                Coorxyz.Add("ID - " + acBlockRef.Id.ToString() + "," +
-                                            "X - " + acBlockRef.Position.X.ToString() + "," +
-                                            "Y - " + acBlockRef.Position.Y.ToString() + "," +
-                                            "Z - " + acBlockRef.Position.Z.ToString() + "," +
-                                            "LayerEval - " + acBlkTbl.Database.LayerEval.ToString() + "," +
-                                            "Handle - " + acBlkTbl.Handle.ToString() + "," +
-                                            "Attr - " + acBlockRef.AttributeCollection.ToString());
-
+                                Coorxyz.Add("ID: " + acBlockRef.Id.ToString() + ", " +
+                                            "X: " + acBlockRef.Position.X.ToString() + ", " +
+                                            "Y: " + acBlockRef.Position.Y.ToString() + ", " +
+                                            "Z: " + acBlockRef.Position.Z.ToString() + ", " +
+                                            "Handle: " + acBlkTbl.Handle.ToString() + "," +
+                                            "ObjectId: " + acBlkTblRec.ObjectId.ToString() + ", " +
+                                            "Layer: " + acBlockRef.Layer.ToString());
+                               // слой забирается, в котором блок находится - 13-02-2023 
+                               // нужен аттрибут 
                             }
                         }
                     }
