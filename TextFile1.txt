@@ -1,4 +1,4 @@
-
+// https://www.codeproject.com/Articles/840798/AutoCAD-D-Drawing-using-Csharp-with-AutoCAD-COM-AP
 выбор обьектов по аттрибутам
 using Autodesk.AutoCAD.ApplicationServices;
  
