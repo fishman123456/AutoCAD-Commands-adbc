@@ -68,8 +68,8 @@ namespace ACADCommands
                                             "Z: " + acBlockRef.Position.Z.ToString() + ",\n" +
                                             "Handle: " + acBlkTbl.Handle.ToString() + ",\n" +
                                             "ObjectId: " + acBlkTblRec.ObjectId.ToString() + ",\n" +
-                                            "Handle BlockRef : " + acBlockRef.Handle.ToString() + ",\n" + // вот нужеая фигня - Handle
-                                            "Layer: " + acBlockRef.Layer.ToString());
+                                            "Handle BlockRef : " + acBlockRef.Handle.ToString() + ",\n" + // вот нужная фигня - Handle
+                                            "Layer: " + acBlockRef.Layer.ToString() + "\n");
                                 // слой забирается, в котором блок находится - 13-02-2023 
                                 // нужен аттрибут 
                                 // вывод в коммандную строку

@@ -4,11 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Autodesk.AutoCAD.Runtime;
-using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.Windows;
 
-namespace  ACADCommands
+namespace ACADCommands
 {
     // класс для проверки текущей даты
     public static class CheckDateWork
@@ -16,15 +13,14 @@ namespace  ACADCommands
         public static void CheckDate()
         {
             DateTime dt1 = DateTime.Now;
-            DateTime dt2 = DateTime.Parse("12/01/2024");
-           
+            DateTime dt2 = DateTime.Parse("01/01/2024");
+            Window w1 = new Window();
 
             if (dt1.Date > dt2.Date)
             {
-                var editor = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument.Editor;
-                editor.WriteMessage("не работаем");
+                MessageBox.Show("Your Application is Expire");
                 // Выход из проложения добавил 01-01-2024. Чтобы порядок был....
-                editor.Document.CloseAndSave("1");
+                Application.Current.Shutdown();
                 //w1.Close();
             }
             else
