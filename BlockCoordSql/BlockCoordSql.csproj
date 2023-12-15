@@ -59,6 +59,7 @@
     <Compile Include="GetAttribValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectTypeLayer.cs" />
+    <Compile Include="СableSections.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
