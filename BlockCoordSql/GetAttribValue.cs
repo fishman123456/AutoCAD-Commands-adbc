@@ -60,9 +60,13 @@ namespace ACADCommands
                     foreach (ObjectId attId in attCol)
                     {
                         AttributeReference attRef = (AttributeReference)tr.GetObject(attId, OpenMode.ForRead);
-                        str = ("Attribute Tag: " + attRef.Tag + ",\n" +
+                        // добавил условие по проверке название тега  ОБОЗНАЧ_КАБЕЛЯ
+                        if (attRef.Tag == "ОБОЗНАЧ_КАБЕЛЯ")
+                        {
+                            str = ("Attribute Tag: " + attRef.Tag + ",\n" +
                                 "Attribute String: " + attRef.TextString + ",\n");
-                        ed.WriteMessage(str);
+                            ed.WriteMessage(str);
+                        }
                     }
                 }
                 tr.Commit();

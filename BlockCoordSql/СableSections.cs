@@ -65,17 +65,18 @@ namespace ACADCommands
                         {
 
                             string str = (attRef.TextString + "\n");
-                            //ed.WriteMessage(str);
+                            ed.WriteMessage(str);
                             stringCable.Add(str);
 
                             // stringCable.Sort((n1) => n1.Split('-')[1].CompareTo(n1.Split('s')[1]));
 
-                            foreach (var strList  in stringCable)
-                            {
-                                ed.WriteMessage(str);
-                            }
+                            //foreach (var strList  in stringCable)
+                            //{
+                            //    ed.WriteMessage(str);
+                            //}
                         }
                     }
+                    ed.WriteMessage("");
                 }
                 tr.Commit();
             }
