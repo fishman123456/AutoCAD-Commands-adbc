@@ -16,6 +16,9 @@ namespace ACADCommands
 {
     public class GetAtSaveCSV
     {
+        // строка для сохранения в csv
+        public StringBuilder stringBuilder = new StringBuilder();
+        // аттрибут для запуска метода считывания атрибутов и координат блока
         [CommandMethod("ListCSV")]
         public static void ListAttrSaveCSV()
         {
@@ -41,14 +44,15 @@ namespace ACADCommands
                 SelectionSet selSet = res.Value;
                 // добавляем в массив выбранные обьекты
                 ObjectId[] idArray = selSet.GetObjectIds();
-                // строка для сохранения в csv
-                StringBuilder stringBuilder = new StringBuilder();
+                
                 // перебираем блоки
                 foreach (ObjectId blkId in idArray)
                 {
+                    // ссылки на блоки
                     BlockReference blkRef = (BlockReference)tr.GetObject(blkId, OpenMode.ForRead);
-
+                    // ссылка на таблицу блоков
                     BlockTableRecord btr = (BlockTableRecord)tr.GetObject(blkRef.BlockTableRecord, OpenMode.ForRead);
+                    // берем коллекцию атрибутов по ссылкам на блоки
                     AttributeCollection attCol = blkRef.AttributeCollection;
                     // перебираем аттрибуты
                     foreach (ObjectId blkAttId in attCol)
