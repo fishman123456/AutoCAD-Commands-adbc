@@ -198,6 +198,7 @@
     <Compile Include="GetAttr.cs" />
     <Compile Include="GetAttribValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaveCSV.cs" />
     <Compile Include="SelectTypeLayer.cs" />
     <Compile Include="СableSections.cs" />
   </ItemGroup>

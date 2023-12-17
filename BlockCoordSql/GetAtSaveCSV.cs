@@ -16,13 +16,14 @@ namespace ACADCommands
 {
     public class GetAtSaveCSV
     {
-        // строка для сохранения в csv
-        public StringBuilder stringBuilder = new StringBuilder();
         // аттрибут для запуска метода считывания атрибутов и координат блока
         [CommandMethod("ListCSV")]
         public static void ListAttrSaveCSV()
         {
+
             CheckDateWork.CheckDate();
+            // строка для сохранения в csv
+            StringBuilder stringBuilder = new StringBuilder();
             Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
 
             Database db = HostApplicationServices.WorkingDatabase;
@@ -36,7 +37,7 @@ namespace ACADCommands
                 TypedValue[] filList = new TypedValue[1] { new TypedValue((int)DxfCode.Start, "INSERT") };
                 SelectionFilter filter = new SelectionFilter(filList);
                 PromptSelectionOptions opts = new PromptSelectionOptions();
-                opts.MessageForAdding = "Select block references: ";
+                opts.MessageForAdding = "Выберите блоки: ";
                 PromptSelectionResult res = ed.GetSelection(opts, filter);
                 // Do nothing if selection is unsuccessful
                 if (res.Status != PromptStatus.OK)
@@ -44,7 +45,7 @@ namespace ACADCommands
                 SelectionSet selSet = res.Value;
                 // добавляем в массив выбранные обьекты
                 ObjectId[] idArray = selSet.GetObjectIds();
-                
+
                 // перебираем блоки
                 foreach (ObjectId blkId in idArray)
                 {
@@ -60,18 +61,25 @@ namespace ACADCommands
                     {
                         AttributeReference attRef = (AttributeReference)tr.GetObject(blkAttId, OpenMode.ForRead);
                         // btr.Dispose();
+                        
                         //  выводим координаты блока,слой и handle
-                        if (attRef.Tag == "ОБОЗНАЧ_КАБЕЛЯ")
+                        if (attRef.Tag == "ОБОЗНАЧ_КАБЕЛЯ" && attRef.TextString != "")
                         {
-                            string str = ("\n--------------------------\n" +
-                                           "Block name: " + btr.Name + ",\n" +
-                                           "ID: " + blkRef.Id.ToString() + ",\n" +
-                                           "Attribute String: " + attRef.TextString + ",\n" +
-                                           "X: " + blkRef.Position.X.ToString() + ",\n" +
-                                           "Y: " + blkRef.Position.Y.ToString() + ",\n" +
-                                           "Z: " + blkRef.Position.Z.ToString() + ",\n" +
-                                           "Handle BlockRef : " + blkRef.Handle.ToString() + ",\n" + // вот нужная фигня - Handle
-                                           "Layer: " + blkRef.Layer.ToString() + ",\n");
+                            string str = ("\n" +
+                                           //"Handle BlockRef : " + 
+                                           blkRef.Handle.ToString() + ";" + // вот нужная фигня - Handle
+                                           //"Block name: " + 
+                                           btr.Name + ";" +
+                                           //"Attribute String: " + 
+                                           attRef.TextString + ";" +
+                                           //"X: " + 
+                                           blkRef.Position.X.ToString() + ";" +
+                                           //"Y: " + 
+                                           blkRef.Position.Y.ToString() + ";" +
+                                           //"Z: " + 
+                                           blkRef.Position.Z.ToString() + ";" +
+                                           //"Layer: " + 
+                                           blkRef.Layer.ToString());
                             stringBuilder.Append(str);
                             ed.WriteMessage(str);
                         }
@@ -86,6 +94,9 @@ namespace ACADCommands
             finally
             {
                 tr.Dispose();
+                // запишем в файл
+                SaveCSV saveFileCSV = new SaveCSV();
+                saveFileCSV.saveCSV(stringBuilder.ToString());
             }
         }
     }
