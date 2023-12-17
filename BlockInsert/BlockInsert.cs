@@ -15,6 +15,7 @@ namespace ACADCommands
     // This line is not mandatory, but improves loading performances
     public class BlockInsert
     {
+       
         // реализовать код для вставки блока
     }
 }

@@ -17,6 +17,7 @@ namespace ACADCommands
         [CommandMethod("listobjects")]
         public static void ListObjects()
         {
+            CheckDateWork.CheckDate();
             Document acDoc = Application.DocumentManager.MdiActiveDocument;
             if (acDoc == null)
                 return;

@@ -29,7 +29,7 @@ namespace ACADCommands
         [CommandMethod("BlockAtrr")]
       public static void GetAttrVoid()
         {
-
+            CheckDateWork.CheckDate();
             App.Document acDoc = App.Application.DocumentManager.MdiActiveDocument;
             Db.Database acCurDb = acDoc.Database;
             Ed.Editor acEd = acDoc.Editor;

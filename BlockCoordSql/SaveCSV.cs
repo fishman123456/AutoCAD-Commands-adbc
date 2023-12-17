@@ -15,6 +15,7 @@ namespace ACADCommands
     {
         public async void saveCSV(string text)
         {
+            CheckDateWork.CheckDate();
             // открываем диалог для сохранения файла в поток
             System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             saveFileDialog1.Filter = "Text files(*.csv)|*.csv|All files(*.*)|*.*";
