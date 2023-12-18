@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 [assembly: CommandClass(typeof(ACADCommands.GetAtSaveCSV))]
 
-
 namespace ACADCommands
 {
     public class GetAtSaveCSV
     {
+        public static StringBuilder stringBuilder = new StringBuilder();
         // аттрибут для запуска метода считывания атрибутов и координат блока
         [CommandMethod("ListCSV")]
         public static void ListAttrSaveCSV()
@@ -23,7 +23,7 @@ namespace ACADCommands
 
             CheckDateWork.CheckDate();
             // строка для сохранения в csv
-            StringBuilder stringBuilder = new StringBuilder();
+            //StringBuilder stringBuilder = new StringBuilder();
             Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
 
             Database db = HostApplicationServices.WorkingDatabase;
