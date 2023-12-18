@@ -16,10 +16,12 @@ namespace ACADCommands
     public class GetAtSaveCSV
     {
         public static StringBuilder stringBuilder {get;set;} = new StringBuilder();
+        
         // аттрибут для запуска метода считывания атрибутов и координат блока
         [CommandMethod("ListCSV")]
         public static void ListAttrSaveCSV()
         {
+            ClassEntityFramework ent = new ClassEntityFramework();
             CheckDateWork.CheckDate();
             // строка для сохранения в csv
             //StringBuilder stringBuilder = new StringBuilder();
