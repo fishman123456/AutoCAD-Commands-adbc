@@ -15,7 +15,7 @@ namespace ACADCommands
 {
     public class GetAtSaveCSV
     {
-        public static StringBuilder stringBuilder = new StringBuilder();
+        public static StringBuilder stringBuilder {get;set;} = new StringBuilder();
         // аттрибут для запуска метода считывания атрибутов и координат блока
         [CommandMethod("ListCSV")]
         public static void ListAttrSaveCSV()
