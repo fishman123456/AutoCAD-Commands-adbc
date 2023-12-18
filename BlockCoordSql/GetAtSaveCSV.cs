@@ -20,7 +20,6 @@ namespace ACADCommands
         [CommandMethod("ListCSV")]
         public static void ListAttrSaveCSV()
         {
-
             CheckDateWork.CheckDate();
             // строка для сохранения в csv
             //StringBuilder stringBuilder = new StringBuilder();
