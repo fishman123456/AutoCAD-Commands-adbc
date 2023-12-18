@@ -7,16 +7,13 @@ using System.Threading.Tasks;
 
  namespace ACADCommands
 { 
-    public class ClassEntityFramework
+    public class ClassEntityFramework : DbContext
     {
-        public class UserContext : DbContext
-        {
             // берем строку из app.config    add name="UserDB"
-            public UserContext() :
+            public ClassEntityFramework() :
                 base("UserDB")
             { }
 
             public DbSet<GetAtSaveCSV> Users { get; set; }
-        }
     }
 }
